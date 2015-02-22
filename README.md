@@ -1,4 +1,4 @@
-Hapi-Mongoose-Angular Example
+Hapi-file-upload-download
 ========================
 
 The purpose of this app is to show a new way to work with Hapi.js, Mongodb, Mongoose, Angular.js.
