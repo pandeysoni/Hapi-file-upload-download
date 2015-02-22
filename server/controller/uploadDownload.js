@@ -1,6 +1,7 @@
 var fs = require('fs'),
-    multiparty = require('multiparty')
-    Config = require('./setting');
+    multiparty = require('multiparty'),
+    walk    = require('walk'),
+    Config = require('../config/config');
     // config = requestuire('./config/config'); 
 /*
  * Display upload form
@@ -55,27 +56,49 @@ exports.uploadFile = {
 */
 exports.getFile = {
   handler: function (request, reply) {
-  var file = request.params.file
-    , path = Config.publicFolder+Config.uploadFolder+"/" + file
-    , ext = file.substr(file.lastIndexOf('.') + 1);
-   if(ext === "pdf" || ext ==="ppt" || ext ==="pptx" || ext === "xls" || ext === "xlsx" || ext === "doc" || ext === "docx" || ext === "csv"){
-      fs.readFile(path, function(error, content) {
-        if (error) {
-          reply(500);
-        }
-        else {
-           if(ext === "pdf") reply(content).header('Content-Type', 'application/pdf')
-           if(ext === "ppt") reply(content).header('Content-Type', 'application/vnd.ms-powerpoint');
-           if(ext === "pptx") reply(content).header('Content-Type', 'application/vnd.openxmlformats-officedocument.preplyentationml.preplyentation');
-           if(ext === "xls") reply(content).header('Content-Type', 'application/vnd.ms-excel');
-           if(ext === "xlsx") reply(content).header('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-           if(ext === "doc") reply(content).header('Content-Type', 'application/msword');
-           if(ext === "docx") reply(content).header('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-           if(ext === "csv") reply(content).header('Content-Type', 'application/octet-stream');
-           .header("Content-Disposition", "attachment; filename=" + file);
-        }
-      });
-    }
-  else reply.file(path);
-}
+    var file = request.params.file
+      , path = Config.publicFolder+Config.uploadFolder+"/" + file
+      , ext = file.substr(file.lastIndexOf('.') + 1);
+     if(ext === "pdf" || ext ==="ppt" || ext ==="pptx" || ext === "xls" || ext === "xlsx" || ext === "doc" || ext === "docx" || ext === "csv"){
+        fs.readFile(path, function(error, content) {
+          if (error) {
+            reply(500);
+          }
+          else {
+             if(ext === "pdf") reply(content).header('Content-Type', 'application/pdf')
+             if(ext === "ppt") reply(content).header('Content-Type', 'application/vnd.ms-powerpoint')
+             if(ext === "pptx") reply(content).header('Content-Type', 'application/vnd.openxmlformats-officedocument.preplyentationml.preplyentation')
+             if(ext === "xls") reply(content).header('Content-Type', 'application/vnd.ms-excel')
+             if(ext === "xlsx") reply(content).header('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+             if(ext === "doc") reply(content).header('Content-Type', 'application/msword')
+             if(ext === "docx") reply(content).header('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+             if(ext === "csv") reply(content).header('Content-Type', 'application/octet-stream')
+             .header("Content-Disposition", "attachment; filename=" + file);
+          }
+        });
+      }
+    else reply.file(path);
+  }
 };
+
+/**
+*get fileList
+*/
+exports.fileList = {
+   handler: function (request, reply) {
+      var files   = [];
+      // Walker options
+      var path_dir = Config.publicFolder+Config.uploadFolder;
+      var walker  = walk.walk(path_dir, { followLinks: false });
+
+      walker.on('file', function(root, stat, next) {
+          // Add this file to the list of files
+          files.push(stat.name);
+          next();
+      });
+
+      walker.on('end', function() {
+            return reply(files);
+      }); 
+  } 
+}
