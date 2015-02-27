@@ -1,0 +1,12 @@
+<div class="row" data-ng-controller="appCtrl">
+	<h1>Upload Files</h1>
+  <div class="well">
+    <div>
+      <form enctype="multipart/form-data">
+         <input class="textbox1" type="file" ng-file-select="onFileSelect($files)"/>
+             <a type="submit" class="btn btn-success btn-sm" style="margin-top:10px;" ng-click="uploadfile()" >Submit</a>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

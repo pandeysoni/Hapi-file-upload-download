@@ -9,7 +9,7 @@ var fs = require('fs'),
 exports.display_form = {
     handler: function(requestuest, reply) {
         reply(
-            '<form action="/uploadFile" method="post" enctype="multipart/form-data">' +
+            '<form action="/upload" method="post" enctype="multipart/form-data">' +
             '<input type="file" name="file">' +
             '<input type="submit" value="Upload">' +
             '</form>'
