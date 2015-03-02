@@ -1,9 +1,10 @@
-app.controller('appCtrl', [ '$scope', '$http','$location','service', 'growl',
-	function($scope, $http, $location, service,  growl){
+app.controller('appCtrl', [ '$scope', '$http','$location', 'growl',
+	function($scope, $http, $location,  growl){
 
 		$scope.uploadfile = function(){
-			service.post({url:'upload'}).$promise.then(function(data){
-				$scope.sectionList = data;
+			$http.post('/upload',$scope.file).then(function(data){
+				console.log('success');
+				// $scope.sectionList = data;
 			}).catch(function(error){
 				growl.addErrorMessage('oops! Something went wrong');
 			})
@@ -11,6 +12,7 @@ app.controller('appCtrl', [ '$scope', '$http','$location','service', 'growl',
 
 		$scope.onFileSelect = function($files){
 			$scope.file = $files[0].name; 
+			console.log($scope.file);
 		}
 	}]
 )
