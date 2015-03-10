@@ -1,3 +1,4 @@
+"use strict";
 var fs = require('fs'),
     multiparty = require('multiparty'),
     walk = require('walk'),
