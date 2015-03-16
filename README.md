@@ -13,6 +13,7 @@ Run the following command in root directory of an app in command prompt.
 
 ###### *Install node packages*
 $ cd Hapi-file-upload-download/server/
+
 $ npm install
 
 ### Run an app
