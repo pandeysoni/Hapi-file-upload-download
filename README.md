@@ -3,21 +3,26 @@ Hapi-file-upload-download
 
 The purpose of this app is to upload and download the file of any extension. You don't need to worry about file extension, is going to work for all types of file.
 
+### Clone app
+
+$ git clone git@github.com:shamsher31/Hapi-file-upload-download.git
+
 ### Install an app
 
 Run the following command in root directory of an app in command prompt.
 
 ###### *Install node packages*
+$ cd Hapi-file-upload-download/server/
 
-server/ node install
+$ npm install
 
 ### Run an app
 
 ###### *Run Server*
 
-Run the following command in root directory of an app in command prompt.
+Run the following command inside server directory of an app in command prompt.
 
-server/ node server.js
+$ node server.js
 
 You can see the port number in command prompt after sucessfull run
 
