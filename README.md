@@ -5,7 +5,7 @@ The purpose of this app is to upload and download the file of any extension. You
 
 ### Clone app
 
-$ git clone git@github.com:pandeysoni/Hapi-file-upload-download.git
+$ git clone git@github.com:shamsher31/Hapi-file-upload-download.git
 
 ### Install an app
 
